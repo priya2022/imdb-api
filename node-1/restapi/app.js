@@ -131,12 +131,16 @@ app.get('/info/:id', (req, res)=> {
 })
 
 //Home details
-app.get('/home/:id', (req, res)=> {
-    let hom_id = req.params.id
-    //let mov_id = mongo.ObjectId(req.params.id)
-    //db.collection('movies').find({_id:mov_id}).toArray((err,result)=> {
-    db.collection('home').find({id:hom_id}).toArray((err,result)=> {
-        if(err) throw err;
+app.get('/home', (req, res)=> {
+    let hom_id = Number(req.query.id)
+    let query = {};
+    if(hom_id) 
+    {
+        query = {id:hom_id}
+    }
+    db.collection('home').find(query).toArray((err,result)=>
+    {
+        if (err) throw err;
         res.send(result)
     })
 })
