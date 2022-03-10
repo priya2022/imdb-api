@@ -130,6 +130,17 @@ app.get('/info/:id', (req, res)=> {
     })
 })
 
+//Home details
+app.get('/home/:id', (req, res)=> {
+    let hom_id = req.params.id
+    //let mov_id = mongo.ObjectId(req.params.id)
+    //db.collection('movies').find({_id:mov_id}).toArray((err,result)=> {
+    db.collection('home').find({id:hom_id}).toArray((err,result)=> {
+        if(err) throw err;
+        res.send(result)
+    })
+})
+
 MongoClient.connect(mongoUrl,(err,connection)=>
 {
     if(err) console.log(`Error while connecting`);
